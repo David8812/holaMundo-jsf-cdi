@@ -16,6 +16,7 @@ public class Candidato {
     private String apellido = "Introduce tu Apellido";
     private int sueldoDeseado;
     private Date fechaNacimiento;
+    private String[] array;
 
     public Candidato() {
         log.info("Creando el objeto Candidato");
@@ -55,5 +56,18 @@ public class Candidato {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
         log.info("Modificando la propiedad fechaNacimiento:" + this.fechaNacimiento);
+    }
+
+    public void setArray(String[] array) {
+        this.array = array;
+        log.info("Modificando la propiedad array: ");
+        for (int i = 0; i < array.length; i++) {
+            String string = array[i];
+            log.info("valor " + i + " :" + string);
+        }
+    }
+
+    public String[] getArray() {
+        return array;
     }
 }

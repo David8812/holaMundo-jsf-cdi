@@ -25,7 +25,7 @@ public class NoNumbersString implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        log.info("Entrando al validador predefinido");
+        log.info("Entrando al validador personalizado");
         String val = value.toString();
         for (int i = 0; i < val.length(); i++) {
             if (Character.isDigit(val.charAt(i))) {

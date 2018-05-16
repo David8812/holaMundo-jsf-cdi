@@ -42,6 +42,15 @@
                         </td>
                         <td><h:message for="fechaNacimiento" /></td>
                     </tr>
+                    <tr>
+                        <td><h:outputLabel for="array" value="Habilidades" /></td>
+                        <td>
+                            <h:inputText id="array" required="true" value="#{candidato.array}">
+                                <f:converter converterId="beans.converters.ToArrayString" />
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="array" /></td>
+                    </tr>
                 </tbody>
             </table>
             <br/>
