@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>BolsaTrabajoV1</title>
+        <title>holamundo-jsf-cdi</title>
     </h:head>
     <h:body>
         <h:form>
@@ -20,16 +20,27 @@
                     </tr>
                     <tr>
                         <td><h:outputLabel for="apellido" value="Apellido:" /></td>
-                        <td><h:inputText id="apellido" value="#{candidato.apellido}" required="true"/></td>
+                        <td>
+                            <h:inputText id="apellido" value="#{candidato.apellido}" required="true" >
+                                <f:validator validatorId="beans.validators.NoNumbersString" />
+                            </h:inputText>
+                        </td>
                         <td><h:message for="apellido" /></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel for="sueldoDeseado" value="Sueldo Deseado:" /></td>
-                        <td><h:inputText id="sueldoDeseado" required="true"
-                                         value="#{candidato.sueldoDeseado}">
+                        <td><h:inputText id="sueldoDeseado" required="true" value="#{candidato.sueldoDeseado}">
                                 <f:validateLongRange minimum="1000" maximum="50000"/>
                             </h:inputText></td>
                         <td><h:message for="sueldoDeseado" /></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento" /></td>
+                        <td><h:inputText id="fechaNacimiento" required="true" value="#{candidato.fechaNacimiento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:inputText>
+                        </td>
+                        <td><h:message for="fechaNacimiento" /></td>
                     </tr>
                 </tbody>
             </table>

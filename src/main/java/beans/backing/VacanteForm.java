@@ -31,7 +31,7 @@ public class VacanteForm {
 
         System.out.println("enviar() Nombre=" + this.candidato.getNombre());
         System.out.println("enviar() Apellido=" + this.candidato.getApellido());
-        System.out.println("enviar() Sueldo deseado" + this.candidato.getSueldoDeseado());
+        System.out.println("enviar() Sueldo deseado=" + this.candidato.getSueldoDeseado());
 
         if (this.candidato.getNombre().equals("Juan")) {
 

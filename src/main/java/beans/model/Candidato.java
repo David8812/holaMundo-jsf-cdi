@@ -1,5 +1,6 @@
 package beans.model;
 
+import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +14,8 @@ public class Candidato {
 
     private String nombre = "Introduce tu nombre";
     private String apellido = "Introduce tu Apellido";
-    private String sueldoDeseado = "Introduce Sueldo Deseado";
+    private int sueldoDeseado;
+    private Date fechaNacimiento;
 
     public Candidato() {
         log.info("Creando el objeto Candidato");
@@ -37,12 +39,21 @@ public class Candidato {
         log.info("Modificando la propiedad apellido:" + this.apellido);
     }
 
-    public String getSueldoDeseado() {
+    public int getSueldoDeseado() {
         return sueldoDeseado;
     }
 
-    public void setSueldoDeseado(String sueldoDeseado) {
+    public void setSueldoDeseado(int sueldoDeseado) {
         this.sueldoDeseado = sueldoDeseado;
         log.info("Modificando la propiedad sueldoDeseado:" + this.sueldoDeseado);
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+        log.info("Modificando la propiedad fechaNacimiento:" + this.fechaNacimiento);
     }
 }

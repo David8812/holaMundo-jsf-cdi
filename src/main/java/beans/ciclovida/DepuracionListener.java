@@ -4,6 +4,8 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+//use this class to check every phase in the JSF process, 
+//also add lifecycle to faces-config.xml and comments in whole those places you want to check
 
 public class DepuracionListener implements javax.faces.event.PhaseListener {
 
