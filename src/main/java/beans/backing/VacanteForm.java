@@ -4,7 +4,10 @@ import beans.model.Candidato;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,6 +50,39 @@ public class VacanteForm {
         } else {
             return "fallo"; //fallo.xhtml
         }
+    }
+
+    //Metodo de tipo Value Change Listener
+    public void codigoPostalListener(ValueChangeEvent valueChangeEvent) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        UIViewRoot uiViewRoot = facesContext.getViewRoot();
+        String newCodigoPostal = (String) valueChangeEvent.getNewValue();
+        String colonia, ciudad;
+        
+        switch(newCodigoPostal) {
+            case "03810":
+                colonia = "Napoles";
+                ciudad = "Ciudad de Mexico";
+                break;
+            case "11450":
+                colonia = "Ahuehuetes Anahuac";
+                ciudad = "Ciudad de Mexico";
+                break;
+            default:
+                colonia = "";
+                ciudad = "";
+                break;
+        }
+        //Utilizamos el nombre del form de index.xhtml para encontrar el componente
+        UIInput coloniaInputText = (UIInput) uiViewRoot.findComponent("vacanteForm:colonia");
+        coloniaInputText.setValue(colonia);
+        coloniaInputText.setSubmittedValue(colonia);
+
+        UIInput ciudadInputText = (UIInput) uiViewRoot.findComponent("vacanteForm:ciudad");
+        ciudadInputText.setValue(ciudad);
+        ciudadInputText.setSubmittedValue(ciudad);
+
+        facesContext.renderResponse();
     }
 
 }

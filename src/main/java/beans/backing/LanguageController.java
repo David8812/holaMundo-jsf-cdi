@@ -51,7 +51,7 @@ public class LanguageController implements Serializable {
         return locale.getLanguage();
     }
 
-    public void setLanguage(String language) {
+    private void setLanguage(String language) {
         locale = new Locale(language);
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
