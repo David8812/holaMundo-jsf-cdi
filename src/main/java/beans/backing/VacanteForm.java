@@ -1,6 +1,6 @@
 package beans.backing;
 
-import beans.helper.FacesContextHelper;
+import beans.helper.ColoniaHelper;
 import beans.model.Candidato;
 import java.io.Serializable;
 import javax.inject.Named;
@@ -23,6 +23,9 @@ public class VacanteForm implements Serializable {
 
     @Inject
     private Candidato candidato;
+
+    @Inject
+    private ColoniaHelper coloniaHelper;
 
     private boolean comentarioEnviado = false;
 
@@ -61,42 +64,31 @@ public class VacanteForm implements Serializable {
     public void codigoPostalListener(ValueChangeEvent valueChangeEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         UIViewRoot uiViewRoot = facesContext.getViewRoot();
-        String newCodigoPostal = (String) valueChangeEvent.getNewValue();
-        String colonia, ciudad;
-
-        switch (newCodigoPostal) {
-            case "03810":
-                colonia = "Napoles";
-                ciudad = "Ciudad de Mexico";
-                break;
-            case "11450":
-                colonia = "Ahuehuetes Anahuac";
-                ciudad = "Ciudad de Mexico";
-                break;
-            default:
-                colonia = "";
-                ciudad = "";
-                log.info("Asignando codigo postal a candidato: " + newCodigoPostal);
-              //  candidato.setCodigoPostal(newCodigoPostal);
-                break;
-        }
-        //Utilizamos el nombre del form de index.xhtml para encontrar el componente
-        UIInput coloniaInputText = (UIInput) uiViewRoot.findComponent("vacanteForm:colonia");
-        coloniaInputText.setValue(colonia);
-        coloniaInputText.setSubmittedValue(colonia);
-
+        Long newCodigoPostal = (Long) valueChangeEvent.getNewValue();
+        log.info("Nuevo codigo postal: " + newCodigoPostal);
+        if(newCodigoPostal == null)
+            newCodigoPostal = 0L;
+        UIInput coloniaInputText = (UIInput) uiViewRoot.findComponent("vacanteForm:coloniaId");
+        //Buscamos la colonia por id con ayuda del beancoloniaHelper
+        Long coloniaId = this.coloniaHelper.getColoniaIdPorCP(newCodigoPostal);
+        coloniaInputText.setValue(coloniaId);
+        coloniaInputText.setSubmittedValue(coloniaId);
+        
         UIInput ciudadInputText = (UIInput) uiViewRoot.findComponent("vacanteForm:ciudad");
+        String ciudad = "";
+        if(coloniaId != 0)
+            ciudad = "Ciudad de Mexico";
         ciudadInputText.setValue(ciudad);
         ciudadInputText.setSubmittedValue(ciudad);
-
+        //Enviamos la respuesta
         facesContext.renderResponse();
     }
 
     public void ocultarComentario(ActionEvent actionEvent) {
         this.comentarioEnviado = !this.comentarioEnviado;
         log.info("Mostrando/ocultando el comentario");
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        FacesContextHelper.limpiarImmediateFacesMessages(facesContext);
+        // FacesContext facesContext = FacesContext.getCurrentInstance();
+        // FacesContextHelper.limpiarImmediateFacesMessages(facesContext);
     }
 
     public boolean isComentarioEnviado() {
@@ -105,6 +97,14 @@ public class VacanteForm implements Serializable {
 
     public void setComentarioEnviado(boolean comentarioEnviado) {
         this.comentarioEnviado = comentarioEnviado;
+    }
+
+    public void setColoniaHelper(ColoniaHelper coloniaHelper) {
+        this.coloniaHelper = coloniaHelper;
+    }
+
+    public ColoniaHelper getColoniaHelper() {
+        return coloniaHelper;
     }
 
 }
