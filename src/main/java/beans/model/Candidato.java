@@ -12,8 +12,8 @@ public class Candidato {
 
     Logger log = LogManager.getRootLogger();
 
-    private String nombre = "Introduce tu nombre";
-    private String apellido = "Introduce tu Apellido";
+    private String nombre;
+    private String apellido;
     private int sueldoDeseado;
     private Date fechaNacimiento;
     private String[] array;

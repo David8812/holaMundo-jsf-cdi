@@ -31,7 +31,8 @@ public class ToArrayString implements Converter {
             String[] ret = value.split("[,]");
             return ret;
         } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de conversión", "Debe especificar las habilidades");
+            String msg = context.getApplication().evaluateExpressionGet(context, "#{msgs['vacanteForm.array.empty']}", String.class);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de conversión", msg);
             throw new ConverterException(message);
         }
     }
@@ -51,7 +52,8 @@ public class ToArrayString implements Converter {
             log.info("Array string: " + ret);
             return ret;
         } else {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de conversión", "Debe especificar las habilidades");
+            String msg = context.getApplication().evaluateExpressionGet(context, "#{msgs['vacanteForm.array.empty']}", String.class);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error de conversión", msg);
             throw new ConverterException(message);
         }
     }

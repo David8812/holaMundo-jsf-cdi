@@ -7,6 +7,18 @@
         <title>holamundo-jsf-cdi</title>
     </h:head>
     <h:body>
+        <!--
+            <f:view></f:view> esto es para mantener la pagina en el idioma seleccionado
+        -->
+        <f:view locale="#{languageController.locale}"></f:view>
+        <h:form>
+            <table>
+                <tr>
+                    <td><h:commandLink action="#{languageController.changeLanguageToEnglish}">English</h:commandLink></td>
+                    <td><h:commandLink action="#{languageController.changeLanguageToSpanish}">|Español</h:commandLink></td>
+                </tr>
+            </table>
+        </h:form>
         <h:form>
 
             <h:messages globalOnly="true" ></h:messages>
@@ -14,12 +26,12 @@
             <table border="0">
                 <tbody>
                     <tr>
-                        <td><h:outputLabel for="nombre" value="Nombre:"/></td>
+                        <td><h:outputLabel for="nombre" value="#{msgs['vacanteForm.nombre']}:"/></td>
                         <td><h:inputText id="nombre" value="#{candidato.nombre}" required="true"/></td>
                         <td><h:message for="nombre" /></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel for="apellido" value="Apellido:" /></td>
+                        <td><h:outputLabel for="apellido" value="#{msgs['vacanteForm.apellido']}:" /></td>
                         <td>
                             <h:inputText id="apellido" value="#{candidato.apellido}" required="true" >
                                 <f:validator validatorId="beans.validators.NoNumbersString" />
@@ -28,14 +40,14 @@
                         <td><h:message for="apellido" /></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel for="sueldoDeseado" value="Sueldo Deseado:" /></td>
+                        <td><h:outputLabel for="sueldoDeseado" value="#{msgs['vacanteForm.sueldoDeseado']}:" /></td>
                         <td><h:inputText id="sueldoDeseado" required="true" value="#{candidato.sueldoDeseado}">
                                 <f:validateLongRange minimum="1000" maximum="50000"/>
                             </h:inputText></td>
                         <td><h:message for="sueldoDeseado" /></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento" /></td>
+                        <td><h:outputLabel for="fechaNacimiento" value="#{msgs['vacanteForm.nacimiento']}" /></td>
                         <td><h:inputText id="fechaNacimiento" required="true" value="#{candidato.fechaNacimiento}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:inputText>
@@ -43,7 +55,7 @@
                         <td><h:message for="fechaNacimiento" /></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel for="array" value="Habilidades" /></td>
+                        <td><h:outputLabel for="array" value="#{msgs['vacanteForm.array']}" /></td>
                         <td>
                             <h:inputText id="array" required="true" value="#{candidato.array}">
                                 <f:converter converterId="beans.converters.ToArrayString" />
@@ -54,7 +66,7 @@
                 </tbody>
             </table>
             <br/>
-            <h:commandButton action="#{vacanteForm.enviar}" value="Enviar"/>
+            <h:commandButton action="#{vacanteForm.enviar}" value="#{msgs['vacanteForm.enviar']}"/>
         </h:form>
 
     </h:body>

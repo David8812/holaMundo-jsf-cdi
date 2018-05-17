@@ -23,13 +23,20 @@ public class NoNumbersString implements Validator {
 
     Logger log = LogManager.getRootLogger();
 
+    /*
+    ResourceBundle.getBundle("errorMessages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+    de esta forma se pueden cargar los mensajes del fichero errorMessages
+     */
+    
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         log.info("Entrando al validador personalizado");
         String val = value.toString();
         for (int i = 0; i < val.length(); i++) {
             if (Character.isDigit(val.charAt(i))) {
-                FacesMessage message = new FacesMessage("Fallo la validacion del apellido.", "El apellido no puede contener numeros");
+                //de esta forma se cargan de los ficheros mensajes
+                String msg = context.getApplication().evaluateExpressionGet(context, "#{msgs['vacanteForm.apellido.withNumber']}", String.class);
+                FacesMessage message = new FacesMessage("Last name with numbers", msg);
                 message.setSeverity(FacesMessage.SEVERITY_ERROR);
                 throw new ValidatorException(message);
             }
