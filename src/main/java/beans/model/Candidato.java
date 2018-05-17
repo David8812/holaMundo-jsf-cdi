@@ -20,6 +20,7 @@ public class Candidato {
     private String codigoPostal;
     private String colonia;
     private String ciudad;
+    private String comentario;
 
     public Candidato() {
         log.info("Creando el objeto Candidato");
@@ -96,6 +97,14 @@ public class Candidato {
 
     public String getCiudad() {
         return ciudad;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getComentario() {
+        return comentario;
     }
     
     

@@ -1,25 +1,30 @@
 package beans.backing;
 
+import beans.helper.FacesContextHelper;
 import beans.model.Candidato;
+import java.io.Serializable;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@RequestScoped
+@SessionScoped
 @Named
-public class VacanteForm {
+public class VacanteForm implements Serializable {
 
     Logger log = LogManager.getRootLogger();
 
     @Inject
     private Candidato candidato;
+
+    private boolean comentarioEnviado = false;
 
     public VacanteForm() {
         log.info("Creando objeto VacanteForm");
@@ -58,8 +63,8 @@ public class VacanteForm {
         UIViewRoot uiViewRoot = facesContext.getViewRoot();
         String newCodigoPostal = (String) valueChangeEvent.getNewValue();
         String colonia, ciudad;
-        
-        switch(newCodigoPostal) {
+
+        switch (newCodigoPostal) {
             case "03810":
                 colonia = "Napoles";
                 ciudad = "Ciudad de Mexico";
@@ -71,6 +76,8 @@ public class VacanteForm {
             default:
                 colonia = "";
                 ciudad = "";
+                log.info("Asignando codigo postal a candidato: " + newCodigoPostal);
+              //  candidato.setCodigoPostal(newCodigoPostal);
                 break;
         }
         //Utilizamos el nombre del form de index.xhtml para encontrar el componente
@@ -83,6 +90,21 @@ public class VacanteForm {
         ciudadInputText.setSubmittedValue(ciudad);
 
         facesContext.renderResponse();
+    }
+
+    public void ocultarComentario(ActionEvent actionEvent) {
+        this.comentarioEnviado = !this.comentarioEnviado;
+        log.info("Mostrando/ocultando el comentario");
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        FacesContextHelper.limpiarImmediateFacesMessages(facesContext);
+    }
+
+    public boolean isComentarioEnviado() {
+        return comentarioEnviado;
+    }
+
+    public void setComentarioEnviado(boolean comentarioEnviado) {
+        this.comentarioEnviado = comentarioEnviado;
     }
 
 }
