@@ -1,7 +1,9 @@
 package beans.ciclovida;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 //use this class to check every phase in the JSF process, 
@@ -13,7 +15,16 @@ public class DepuracionListener implements javax.faces.event.PhaseListener {
 
     @Override
     public void afterPhase(PhaseEvent phaseEvent) {
-
+        FacesContext facesContext = phaseEvent.getFacesContext();
+        HttpServletResponse response = (HttpServletResponse) facesContext
+                .getExternalContext().getResponse();
+        response.addHeader("Pragma", "no-cache");
+        response.addHeader("Cache-Control", "no-cache");
+        // Stronger according to blog comment below that references HTTP spec
+        response.addHeader("Cache-Control", "no-store");
+        response.addHeader("Cache-Control", "must-revalidate");
+        // some date in the past
+        response.addHeader("Expires", "0");
         if (log.isInfoEnabled()) {
             log.info("AFTER PHASE: " + phaseEvent.getPhaseId().toString());
         }
