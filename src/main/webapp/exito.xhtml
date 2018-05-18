@@ -7,12 +7,16 @@
         <title>Exito</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h:outputFormat value="#{msgs['applicationMessageSuccess']}">
-                <f:param value="#{candidato.nombre}"></f:param>
-            </h:outputFormat>
-            <br/>
-            <h:commandLink action="index" value="#{msgs['return']}" />
-        </h:form>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="./WEB-INF/plantillas/plantilla.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:outputFormat value="#{msgs['applicationMessageSuccess']}">
+                        <f:param value="#{candidato.nombre}"></f:param>
+                    </h:outputFormat>
+                    <br/>
+                    <h:commandLink action="index" value="#{msgs['return']}" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
